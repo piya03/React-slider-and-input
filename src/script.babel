@@ -1,0 +1,64 @@
+class Input extends React.Component {
+  render() {
+    const { onChangeInput, value } = this.props;
+    return <input value={value} onChange={onChangeInput} />;
+  }
+}
+class Slider extends React.Component {
+  render() {
+    const { onChangeInput, value } = this.props;
+    return (
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value={value}
+        onChange={onChangeInput}
+        id="myRange"
+      />
+    );
+  }
+}
+
+class Dropdown extends React.Component {
+      buildOptions() {
+      var arr = [];
+     for (let i = 1; i <= 100; i++) {
+            arr.push(<option key={i} value={i}>{i}</option>)
+        }
+    return arr; 
+    } 
+  render() {
+    const { onChangeInput, value } = this.props;
+  
+    return(
+       <select value={value} onChange={onChangeInput}>
+                {this.buildOptions()}
+      </select>
+    )
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: 0 };
+  }
+  onChangeInput = e => {
+    this.setState({ value: e.target.value });
+  };
+  render() {
+    const { value } = this.state;
+    return (
+      <div>
+        <h2>Controlled Component</h2>
+      <div className='container'>
+        <Input onChangeInput={this.onChangeInput} value={value} />
+        <Slider onChangeInput={this.onChangeInput} value={value} />
+        <Dropdown onChangeInput={this.onChangeInput} value={value}/>
+      </div>
+        </div>
+    );
+  }
+}
+ReactDOM.render(<App />, document.getElementById("root"));
